@@ -1,32 +1,21 @@
-"use client"
+'use client'
 
-import { Suspense } from "react"
-import Link from "next/link"
-import { CheckCircle, ArrowRight, Sparkles } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
+import Link from 'next/link'
+import { CheckCircle, ArrowRight, Sparkles } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 
-interface SuccessPageProps {
-  searchParams: {
-    session_id?: string
-    amount?: string
-    currency?: string
-    subscription_id?: string
-    plan_name?: string
-    customer_email?: string
-  }
-}
-
-function SuccessContent({ searchParams }: SuccessPageProps) {
-  const {
-    session_id,
-    amount,
-    currency = "usd",
-    subscription_id,
-    plan_name,
-    customer_email
-  } = searchParams
+function SuccessContent() {
+  const searchParams = useSearchParams()
+  const session_id = searchParams.get('session_id') || undefined
+  const amount = searchParams.get('amount') || undefined
+  const currency = searchParams.get('currency') || 'usd'
+  const subscription_id = searchParams.get('subscription_id') || undefined
+  const plan_name = searchParams.get('plan_name') || undefined
+  const customer_email = searchParams.get('customer_email') || undefined
 
   const formatAmount = (amount: string | undefined, currency: string) => {
     if (!amount) return null
@@ -41,7 +30,7 @@ function SuccessContent({ searchParams }: SuccessPageProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#6366F1] to-[#8B5CF6] flex items-center justify-center p-6">
-      {/* Animated sparkles background */}
+      {/* Sparkle background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 animate-bounce delay-100">
           <Sparkles className="w-6 h-6 text-white/30" />
@@ -61,23 +50,21 @@ function SuccessContent({ searchParams }: SuccessPageProps) {
       </div>
 
       <div className="w-full max-w-2xl relative">
-        {/* Success celebration animation */}
+        {/* Header */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-green-500 rounded-full mb-6 relative">
             <CheckCircle className="w-12 h-12 text-white" />
-            <div className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-20"></div>
+            <div className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-20" />
           </div>
-          
           <h1 className="text-5xl font-bold text-white mb-4 animate-fade-in-up">
             Payment Successful! 🎉
           </h1>
-          
           <p className="text-xl text-white/90 animate-fade-in-up [animation-delay:200ms] opacity-0">
             Thank you for your purchase. Your transaction has been completed successfully.
           </p>
         </div>
 
-        {/* Payment details card */}
+        {/* Payment details */}
         <Card className="bg-[#1F1F1F] border-white/10 shadow-2xl mb-8 animate-fade-in-up [animation-delay:400ms] opacity-0">
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
@@ -94,23 +81,18 @@ function SuccessContent({ searchParams }: SuccessPageProps) {
                 </Badge>
               </div>
             )}
-            
             {formattedAmount && (
               <div className="flex justify-between items-center">
                 <span className="text-gray-400">Amount Paid</span>
                 <span className="text-white font-semibold text-lg">{formattedAmount}</span>
               </div>
             )}
-            
             {plan_name && (
               <div className="flex justify-between items-center">
                 <span className="text-gray-400">Plan</span>
-                <Badge className="bg-[#8B5CF6] hover:bg-[#8B5CF6]/80">
-                  {plan_name}
-                </Badge>
+                <Badge className="bg-[#8B5CF6] hover:bg-[#8B5CF6]/80">{plan_name}</Badge>
               </div>
             )}
-            
             {subscription_id && (
               <div className="flex justify-between items-center">
                 <span className="text-gray-400">Subscription ID</span>
@@ -119,19 +101,15 @@ function SuccessContent({ searchParams }: SuccessPageProps) {
                 </Badge>
               </div>
             )}
-            
             {customer_email && (
               <div className="flex justify-between items-center">
                 <span className="text-gray-400">Email</span>
                 <span className="text-white">{customer_email}</span>
               </div>
             )}
-            
             <div className="flex justify-between items-center border-t border-white/10 pt-4">
               <span className="text-gray-400">Status</span>
-              <Badge className="bg-green-500 hover:bg-green-500/80">
-                Completed
-              </Badge>
+              <Badge className="bg-green-500 hover:bg-green-500/80">Completed</Badge>
             </div>
           </CardContent>
         </Card>
@@ -144,20 +122,20 @@ function SuccessContent({ searchParams }: SuccessPageProps) {
           <CardContent>
             <ul className="space-y-3 text-gray-300">
               <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-[#8B5CF6] rounded-full mt-2 flex-shrink-0"></div>
+                <div className="w-2 h-2 bg-[#8B5CF6] rounded-full mt-2" />
                 <span>You will receive a confirmation email shortly with your receipt</span>
               </li>
               <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-[#8B5CF6] rounded-full mt-2 flex-shrink-0"></div>
+                <div className="w-2 h-2 bg-[#8B5CF6] rounded-full mt-2" />
                 <span>Your account has been upgraded with the new features</span>
               </li>
               <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-[#8B5CF6] rounded-full mt-2 flex-shrink-0"></div>
+                <div className="w-2 h-2 bg-[#8B5CF6] rounded-full mt-2" />
                 <span>You can start using your new plan immediately</span>
               </li>
               {subscription_id && (
                 <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-[#8B5CF6] rounded-full mt-2 flex-shrink-0"></div>
+                  <div className="w-2 h-2 bg-[#8B5CF6] rounded-full mt-2" />
                   <span>Your subscription will auto-renew based on your plan</span>
                 </li>
               )}
@@ -165,7 +143,7 @@ function SuccessContent({ searchParams }: SuccessPageProps) {
           </CardContent>
         </Card>
 
-        {/* Action buttons */}
+        {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up [animation-delay:800ms] opacity-0">
           <Button asChild className="bg-[#8B5CF6] hover:bg-[#8B5CF6]/90 text-white px-8 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105">
             <Link href="/dashboard" className="flex items-center gap-2">
@@ -173,19 +151,12 @@ function SuccessContent({ searchParams }: SuccessPageProps) {
               <ArrowRight className="w-4 h-4" />
             </Link>
           </Button>
-          
-          <Button 
-            asChild 
-            variant="outline" 
-            className="border-white/20 text-white hover:bg-white/10 px-8 py-3 rounded-lg font-medium transition-all duration-200"
-          >
-            <Link href="/">
-              Back to Home
-            </Link>
+          <Button asChild variant="outline" className="border-white/20 text-white hover:bg-white/10 px-8 py-3 rounded-lg font-medium transition-all duration-200">
+            <Link href="/">Back to Home</Link>
           </Button>
         </div>
 
-        {/* Footer message */}
+        {/* Footer */}
         <div className="text-center mt-8 animate-fade-in-up [animation-delay:1000ms] opacity-0">
           <p className="text-white/70 text-sm">
             Need help? Contact our support team at support@example.com
@@ -196,7 +167,7 @@ function SuccessContent({ searchParams }: SuccessPageProps) {
   )
 }
 
-export default function SuccessPage({ searchParams }: SuccessPageProps) {
+export default function SuccessPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-gradient-to-b from-[#6366F1] to-[#8B5CF6] flex items-center justify-center">
@@ -206,7 +177,7 @@ export default function SuccessPage({ searchParams }: SuccessPageProps) {
         </div>
       </div>
     }>
-      <SuccessContent searchParams={searchParams} />
+      <SuccessContent />
     </Suspense>
   )
 }
