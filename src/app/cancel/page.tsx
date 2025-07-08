@@ -1,13 +1,15 @@
+'use client'
+
+import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { XCircle, RotateCcw, Home, Mail } from 'lucide-react'
 
-export default function CancelPage({
-  searchParams,
-}: {
-  searchParams?: { session_id?: string }
-}) {
+export default function CancelPage() {
+  const searchParams = useSearchParams()
+  const sessionId = searchParams.get('session_id')
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-500 to-violet-500 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -61,9 +63,9 @@ export default function CancelPage({
               </div>
             </div>
 
-            {searchParams?.session_id && (
+            {sessionId && (
               <div className="text-xs text-gray-500 text-center mt-4 p-2 bg-gray-800/50 rounded">
-                Session ID: {searchParams.session_id.slice(0, 16)}...
+                Session ID: {sessionId.slice(0, 16)}...
               </div>
             )}
           </CardContent>
