@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "echo Skipping legacy-peer-deps; handled in vercel.json"
+   "postinstall": "echo 'Skipping legacy-peer-deps — handled in vercel.json'"
 
   },
   "dependencies": {
