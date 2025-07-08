@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { XCircle, RotateCcw, Home, Mail } from 'lucide-react'
 
-interface CancelPageProps {
+type CancelPageProps = {
   searchParams?: {
     session_id?: string
   }
@@ -22,7 +22,7 @@ export default function CancelPage({ searchParams }: CancelPageProps) {
               Payment Cancelled
             </CardTitle>
           </CardHeader>
-          
+
           <CardContent className="space-y-6">
             <div className="text-center space-y-3">
               <p className="text-gray-300 leading-relaxed">
@@ -40,7 +40,7 @@ export default function CancelPage({ searchParams }: CancelPageProps) {
                   Try Again
                 </Link>
               </Button>
-              
+
               <Button asChild variant="outline" className="w-full border-gray-600 text-gray-300 hover:bg-gray-800">
                 <Link href="/" className="flex items-center justify-center gap-2">
                   <Home className="w-4 h-4" />
